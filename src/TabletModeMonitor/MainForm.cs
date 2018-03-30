@@ -57,8 +57,12 @@ namespace TabletModeMonitor
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			var supportedResolutions = DisplayResolutionManager.GetSupportedDisplayResolutions().ToArray();
 			var currentResolution = DisplayResolutionManager.GetCurrentDisplayResolution();
+
+			var supportedResolutions =
+				DisplayResolutionManager.GetSupportedDisplayResolutions()
+					.Where(r => r.Width >= 1024 && r.Height >= 768)
+					.ToArray();
 
 			cboDesktopResolutions.Items.AddRange(supportedResolutions);
 			cboDesktopResolutions.SelectedItem = currentResolution;
